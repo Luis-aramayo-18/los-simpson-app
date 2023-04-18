@@ -5,12 +5,13 @@ const Character = ({personajes}) => {
     <div className='row'>
         {
           personajes.map((item,index)=>(
-            <div key={index} className='col'>
+            <div key={index} className='col mb-2'>
                 <div className='card'>
-                    <img src={item.Imagen} alt={item.Nombre}/>
+                    <img src={item.image} alt={item.name} style={{}}/>
                     <div className='card-body'>
-                        <h3 className='card-title'>{item.Nombre}</h3>
-                        <p>{item.Ocupacion}</p>
+                        <h3 className='card-title'>{item.name}</h3>
+                        <p>Especie: {item.species}</p>
+                        <p>Localizacion: {item.location.name}</p>
                     </div>
                 </div>
             </div>
