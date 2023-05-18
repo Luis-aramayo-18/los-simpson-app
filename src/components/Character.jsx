@@ -1,6 +1,6 @@
 import React from "react";
 
-const  Character = ({characters, selectCharacter, currentCharacter}) => {
+const Character = ({ characters, selectCharacter, currentCharacter }) => {
   const handleClick = (item) => {
     selectCharacter(item);
   };
@@ -11,10 +11,9 @@ const  Character = ({characters, selectCharacter, currentCharacter}) => {
         {characters.map((item, index) => (
           <div key={index} className="col mb-2">
             <div className="card">
-              <img src={item.image} alt={item.name} style={{}} />
+              <img src={item.image} alt={item.name} />
               <div className="card-body">
-                <h3 className="card-title">{item.name}</h3>     
-                <p>Localizacion: {item.location.name}</p>
+                <h3 className="card-title">{item.name}</h3>
               </div>
               <div className="text-end"></div>
               <button
@@ -45,9 +44,9 @@ const  Character = ({characters, selectCharacter, currentCharacter}) => {
             </div>
             <div className="modal-body">
               <h1>{currentCharacter.name}</h1>
-              <p>{currentCharacter.species}</p>
-              <p>{currentCharacter.status}</p>
-              <p>{currentCharacter.gender}</p>
+              <p>Species: {currentCharacter.species}</p>
+              <p>Satus: {currentCharacter.status}</p>
+              <p>Gender: {currentCharacter.gender}</p>
             </div>
             <div className="modal-footer">
               <button
