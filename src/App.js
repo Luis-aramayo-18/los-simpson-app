@@ -6,6 +6,7 @@ import Pagination from "./components/Pagination";
 function App() {
   const [search, setSearch] = useState("");
   const [wantedCharacter, setWantedCharacter] = useState([]);
+  const [isEror, setIsError] = useState(false);
 
   const API_CHARACTER = "https://rickandmortyapi.com/api/character";
   const CHARACTER_SEARCH = `https://rickandmortyapi.com/api/character/?name=${search}`;
@@ -47,6 +48,7 @@ function App() {
   };
 
   const watchAllCharacters = () => {
+    setIsError(false)
     fetchCharacter(API_CHARACTER);
   };
 
@@ -56,8 +58,13 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         setWantedCharacter(data.results);
-      });
-    setCharacters(wantedCharacter);
+      });  
+    if (wantedCharacter === undefined) {
+      setIsError(true);
+    } else {
+      setIsError(false)
+      setCharacters(wantedCharacter);
+    }
   };
 
   // let resultSearch = characters.filter((item)=>{
@@ -88,36 +95,40 @@ function App() {
               type="button"
               onClick={watchAllCharacters}
             >
-              Ver odos los personajes
+              Ver todos los personajes
             </button>
           </form>
         </div>
 
         <hr />
-          <Pagination
-            prev={prevPage}
-            next={nextPage}
-            onPrevious={onPrevious}
-            onNext={onNext}
-          />
-
-        <Character
-          wantedCharacter={wantedCharacter}
-          characters={characters}
-          isOpen={isOpen}
-          selectCharacter={(character) => {
-            setIsOpen(true);
-            setCurrentCharacter(character);
-          }}
-          currentCharacter={currentCharacter}
+        <Pagination
+          prev={prevPage}
+          next={nextPage}
+          onPrevious={onPrevious}
+          onNext={onNext}
         />
 
-          <Pagination
-            prev={prevPage}
-            next={nextPage}
-            onPrevious={onPrevious}
-            onNext={onNext}
+        {isEror ? (
+          <h1>Lo sentimos no se encuentra el personaje</h1>
+        ) : (
+          <Character
+            wantedCharacter={wantedCharacter}
+            characters={characters}
+            isOpen={isOpen}
+            selectCharacter={(character) => {
+              setIsOpen(true);
+              setCurrentCharacter(character);
+            }}
+            currentCharacter={currentCharacter}
           />
+        )}
+
+        <Pagination
+          prev={prevPage}
+          next={nextPage}
+          onPrevious={onPrevious}
+          onNext={onNext}
+        />
       </div>
     </>
   );
